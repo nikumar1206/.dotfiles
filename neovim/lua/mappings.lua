@@ -39,14 +39,18 @@ map("n", "<leader>rbW", "<CMD>SearchReplaceMultiBufferCWORD<CR>")
 map("n", "<leader>rbe", "<CMD>SearchReplaceMultiBufferCExpr<CR>")
 map("n", "<leader>rbf", "<CMD>SearchReplaceMultiBufferCFile<CR>")
 
-function RunCommands()
-	vim.cmd("args **/*.{rb,py,js,ts,tsx,json,md}")
-	vim.cmd("SearchReplaceMultiBufferOpen")
+function double_escape(str)
+	return vim.fn.escape(vim.fn.escape(str, escape_characters), escape_characters)
 end
+local left_keypresses = string.rep("\\<Left>", string.len("egcI | update | bd") + 2)
 
+function RunCommands()
+	vim.cmd("args **/*.{rb,py,js,ts,tsx,jsx,json,md,lua,tf,tfvars}")
+	vim.cmd(':call feedkeys(":bufdo %s/' .. "//" .. "egcI | update | bd" .. left_keypresses .. '")')
+end
 map("n", "<leader>fr", RunCommands, { desc = "Find and replace across all buffers" })
 
-map("x", "<D-x>", '"+dm0i<Esc>`0') -- cut (include insert hack to fix whichkey issue #518)
+map("x", "<D-x>", '"+dm0i<Esc>`0') -- cut (include insert hack to fix whichkey iecgIecgIue #518)
 map("x", "<D-c>", '"+y') -- copy
 map("i", "<D-v>", "<C-r><C-o>+") -- paste (insert)
 map("n", "<D-v>", "i<C-r><C-o>+<Esc>l") -- paste (normal)

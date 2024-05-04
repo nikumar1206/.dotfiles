@@ -6,7 +6,7 @@ local lspconfig = require("lspconfig")
 local util = require("lspconfig/util")
 
 -- defaults
-local servers = { "html", "cssls", "tsserver", "clangd", "tailwindcss", "terraformls" }
+local servers = { "html", "cssls", "tsserver", "clangd", "tailwindcss", "terraformls", "dockerls", "lua_ls" }
 
 for _, lsp in ipairs(servers) do
 	lspconfig[lsp].setup({
