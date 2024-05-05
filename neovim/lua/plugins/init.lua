@@ -12,10 +12,10 @@ return {
 			git = {
 				enable = true,
 			},
-			filters = {
-				dotfiles = false,
-				custom = { "^.git$" },
-			},
+			-- filters = {
+			-- 	dotfiles = true,
+			-- 	custom = { "^.git$" },
+			-- },
 		},
 	},
 	{
