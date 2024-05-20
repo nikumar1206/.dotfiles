@@ -26,6 +26,9 @@ M.override = {
 	DiffDelete = {
 		bg = "#F8D7DA",
 	},
+	NormalFloat = {
+		bg = "NONE",
+	},
 }
 
 ---@type HLTable
