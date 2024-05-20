@@ -3,7 +3,11 @@ require("nvchad.mappings")
 -- add yours here
 
 local map = vim.keymap.set
-
+map("n", "<leader>lh", function()
+	if vim.fn.has("nvim-0.10") == 1 then
+		vim.lsp.inlay_hint.enable(0, not vim.lsp.inlay_hint.is_enabled())
+	end
+end, { desc = "LSP | Inlay Hints", silent = true })
 map("n", ";", ":", { desc = "CMD enter command mode" })
 map("x", ";", ":", { desc = "CMD enter command mode" })
 

@@ -20,7 +20,7 @@ local highlights = require("highlights")
 M.ui = {
 	lsp_semantic_tokens = true,
 	extended_integrations = { "trouble" },
-	theme = "flexoki-light",
+	theme = "everforest",
 	nvdash = {
 		load_on_startup = true,
 		header = { " /\\_/\\ ", "( o.o )", " > ^ < " },
@@ -47,7 +47,7 @@ M.ui = {
 				if rawget(vim, "lsp") then
 					for _, client in ipairs(vim.lsp.get_active_clients()) do
 						if client.attached_buffers[M.stbufnr()] then
-							return gen_block("", client.name, "%#St_Lsp_sep#", "%#St_Lsp_bg#", "%#St_Lsp_txt#")
+							return gen_block("󰿘", client.name, "%#St_Lsp_sep#", "%#St_Lsp_bg#", "%#St_Lsp_txt#")
 						end
 					end
 				end
@@ -62,7 +62,7 @@ M.ui = {
 		lspkind_text = true,
 		style = "atom_colored", -- default/flat_light/flat_dark/atom/atom_colored
 	},
-	lsp = { signature = true },
+	lsp = { signature = false },
 }
 
 M.plugins = "plugins"

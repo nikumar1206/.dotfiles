@@ -31,6 +31,10 @@ M.override = {
 ---@type HLTable
 M.add = {
 	NvimTreeOpenedFolderName = { fg = "green", bold = true },
+	LspInlayHint = {
+		bg = "black2",
+		fg = { "light_grey", 10 },
+	},
 }
 
 return M

@@ -12,6 +12,21 @@ return {
 			git = {
 				enable = true,
 			},
+			view = {
+
+				float = {
+					enable = true,
+					quit_on_focus_loss = true,
+					open_win_config = {
+						relative = "editor",
+						border = "rounded",
+						width = 30,
+						height = 30,
+						row = 1,
+						col = 1,
+					},
+				},
+			},
 			-- filters = {
 			-- 	dotfiles = true,
 			-- 	custom = { "^.git$" },
@@ -121,6 +136,12 @@ return {
 						color = "#81e043",
 						name = "Log",
 					},
+
+					["toml"] = {
+						icon = "",
+						color = "#A2AAAD",
+						name = "Toml",
+					},
 				},
 			})
 		end,
@@ -148,15 +169,6 @@ return {
 				-- Configuration here, or leave empty to use defaults
 			})
 		end,
-	},
-	{
-		"NvChad/nvim-colorizer.lua",
-		opts = {
-			user_default_options = {
-				tailwind = true,
-			},
-			filetypes = { "css", "javascript", "html" },
-		},
 	},
 	{
 		"hrsh7th/nvim-cmp",
@@ -230,19 +242,19 @@ return {
 			},
 		},
 	},
-	{
-		"ray-x/lsp_signature.nvim",
-		event = "VeryLazy",
-		opts = {},
-		config = function(_, _)
-			require("lsp_signature").setup({
-				bind = true, -- This is mandatory, otherwise border config won't get registered.
-				handler_opts = {
-					border = "rounded",
-				},
-			})
-		end,
-	},
+	-- {
+	-- 	"ray-x/lsp_signature.nvim",
+	-- 	event = "VeryLazy",
+	-- 	opts = {},
+	-- 	config = function(_, _)
+	-- 		require("lsp_signature").setup({
+	-- 			bind = true, -- This is mandatory, otherwise border config won't get registered.
+	-- 			handler_opts = {
+	-- 				border = "rounded",
+	-- 			},
+	-- 		})
+	-- 	end,
+	-- },
 	{
 		"iamcco/markdown-preview.nvim",
 		cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
@@ -329,5 +341,61 @@ return {
 	{
 		"luochen1990/rainbow",
 		lazy = false,
+	},
+	{
+		"rcarriga/nvim-notify",
+		lazy = false,
+		opts = {
+			render = "compact",
+			stages = "fade",
+			timeout = 1200,
+			top_down = true,
+		},
+	},
+	{
+		"folke/noice.nvim",
+		event = "VeryLazy",
+		opts = {
+			cmdline = {
+				enabled = true, -- enables the Noice cmdline UI
+				view = "cmdline_popup", -- view for rendering the cmdline. Change to `cmdline` to get a classic cmdline at the bottom
+				opts = {}, -- global options for the cmdline. See section on views
+				---@type table<string, CmdlineFormat>
+				format = {
+					-- conceal: (default=true) This will hide the text in the cmdline that matches the pattern.
+					-- view: (default is cmdline view)
+					-- opts: any options passed to the view
+					-- icon_hl_group: optional hl_group for the icon
+					-- title: set to anything or empty string to hide
+					cmdline = { pattern = "^:", icon = "", lang = "vim" },
+					search_down = { kind = "search", pattern = "^/", icon = " ", lang = "regex" },
+					search_up = { kind = "search", pattern = "^%?", icon = " ", lang = "regex" },
+					filter = { pattern = "^:%s*!", icon = "$", lang = "bash" },
+					lua = { pattern = { "^:%s*lua%s+", "^:%s*lua%s*=%s*", "^:%s*=%s*" }, icon = "", lang = "lua" },
+					help = { pattern = "^:%s*he?l?p?%s+", icon = "" },
+					input = {}, -- Used by input()
+					-- lua = false, -- to disable a format, set to `false`
+				},
+			},
+			lsp = {
+				-- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+				override = {
+					["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+					["vim.lsp.util.stylize_markdown"] = true,
+					["cmp.entry.get_documentation"] = true, -- requires hrsh7th/nvim-cmp
+				},
+			},
+			presets = {
+				bottom_search = false, -- use a classic bottom cmdline for search
+				command_palette = true, -- position the cmdline and popupmenu together
+				long_message_to_split = true, -- long messages will be sent to a split
+				inc_rename = false, -- enables an input dialog for inc-rename.nvim
+				lsp_doc_border = false, -- add a border to hover docs and signature help
+			},
+		},
+		dependencies = {
+			"MunifTanjim/nui.nvim",
+			"rcarriga/nvim-notify",
+		},
 	},
 }
